@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { doc, collection, addDoc, onSnapshot, serverTimestamp, updateDoc, arrayUnion } from 'firebase/firestore';
+import { doc, getDoc, setDoc, collection, addDoc, onSnapshot, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../../services/firebase';
 import '../../styles/Notes.css';
 
@@ -46,6 +46,29 @@ function NoteEditor() {
         };
     }, [id, navigate]);
 
+    const handleChange = async (e) => {
+        const { name, value } = e.target;
+        const user = auth.currentUser;
+        if (!user) return;
+
+        if (name === 'title') setTitle(value);
+        if (name === 'content') setContent(value);
+        if (name === 'category') setCategory(value);
+
+        if (id !== 'new') {
+            try {
+                const noteRef = doc(db, 'notes', id);
+                await updateDoc(noteRef, {
+                    [name]: value,
+                    lastEditedBy: user.email,
+                    updatedAt: serverTimestamp()
+                });
+            } catch (error) {
+                console.error("Error updating note:", error);
+            }
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const user = auth.currentUser;
@@ -53,8 +76,6 @@ function NoteEditor() {
             console.error("No user logged in");
             return;
         }
-
-        const currentTime = new Date();
 
         const noteData = {
             title,
@@ -68,37 +89,15 @@ function NoteEditor() {
             if (id === 'new') {
                 noteData.createdAt = serverTimestamp();
                 noteData.createdBy = user.email;
-                noteData.versions = [{
-                    title,
-                    content,
-                    editedBy: user.email,
-                    editedAt: currentTime
-                }];
                 await addDoc(collection(db, 'notes'), noteData);
             } else {
                 const noteRef = doc(db, 'notes', id);
-                const newVersion = {
-                    title,
-                    content,
-                    editedBy: user.email,
-                    editedAt: currentTime
-                };
-                await updateDoc(noteRef, {
-                    ...noteData,
-                    versions: arrayUnion(newVersion)
-                });
+                await setDoc(noteRef, noteData, { merge: true });
             }
             navigate('/notes');
         } catch (error) {
             console.error("Error saving note:", error);
         }
-    };
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        if (name === 'title') setTitle(value);
-        if (name === 'content') setContent(value);
-        if (name === 'category') setCategory(value);
     };
 
     return (
