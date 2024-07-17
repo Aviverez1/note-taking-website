@@ -25,7 +25,7 @@ function Login() {
         try {
             await signInWithEmailAndPassword(auth, email, password);
         } catch (error) {
-            setError(error.message);
+            setError("The Email or Password is incorrect");
         }
     };
 

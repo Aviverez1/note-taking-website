@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { doc, getDoc, setDoc, collection, addDoc, onSnapshot, serverTimestamp, updateDoc } from 'firebase/firestore';
+import { doc, setDoc, collection, addDoc, onSnapshot, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../../services/firebase';
 import '../../styles/Notes.css';
 
