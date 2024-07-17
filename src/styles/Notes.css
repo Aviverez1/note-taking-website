@@ -1,0 +1,265 @@
+.notes-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+.note-card {
+    background-color: #fff9c4;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 15px;
+    width: 250px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.note-card:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transform: translateY(-5px);
+}
+
+.note-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.note-content {
+    font-size: 0.9em;
+    color: #666;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+}
+
+.note-footer {
+    font-size: 0.8em;
+    color: #999;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.note-category {
+    background-color: #e0e0e0;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+.create-note-card {
+    background-color: #e8eaf6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 5em;
+    color: #3f51b5;
+}
+
+.create-note-card:hover {
+    background-color: #c5cae9;
+}
+
+.category-filter {
+    margin-bottom: 20px;
+}
+
+.category-filter select {
+    padding: 5px 10px;
+    font-size: 1em;
+}
+
+.note-editor {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.note-form {
+    background-color: #fff9c4;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+textarea.form-control {
+    height: 150px;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.btn-primary {
+    background-color: #3f51b5;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #303f9f;
+}
+
+.notes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 20px;
+}
+
+.notes-title {
+    font-size: 24px;
+    color: #3f51b5;
+}
+
+.category-filter {
+    display: flex;
+    align-items: center;
+}
+
+.category-filter label {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #3f51b5;
+}
+
+.category-filter select {
+    padding: 8px;
+    border: 1px solid #3f51b5;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #3f51b5;
+    background-color: white;
+}
+
+.delete-note {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.note-card:hover .delete-note {
+    opacity: 1;
+}
+
+.delete-note:hover {
+    background-color: #d32f2f;
+}
+
+.create-note-card {
+    background-color: #e8eaf6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 5em;
+    color: #3f51b5;
+    transition: background-color 0.3s;
+}
+
+.create-note-card:hover {
+    background-color: #c5cae9;
+}
+.note-history {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.version-item {
+    background-color: #fff9c4;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.version-item h3 {
+    margin-top: 0;
+    color: #3f51b5;
+}
+
+.version-item button {
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.version-item button:hover {
+    background-color: #303f9f;
+}
+.note-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.btn-primary {
+    background-color: #3f51b5;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #303f9f;
+}
+
+.btn-secondary {
+    background-color: #757575;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #616161;
+}
