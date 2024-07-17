@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { doc, setDoc, collection, addDoc, onSnapshot, serverTimestamp, updateDoc } from 'firebase/firestore';
+import { doc, collection, addDoc, onSnapshot, serverTimestamp, updateDoc, arrayUnion } from 'firebase/firestore';
 import { auth, db } from '../../services/firebase';
 import '../../styles/Notes.css';
 
@@ -76,7 +76,7 @@ function NoteEditor() {
             console.error("No user logged in");
             return;
         }
-
+        const currentTime = new Date();
         const noteData = {
             title,
             content,
@@ -89,10 +89,25 @@ function NoteEditor() {
             if (id === 'new') {
                 noteData.createdAt = serverTimestamp();
                 noteData.createdBy = user.email;
+                noteData.versions = [{
+                    title,
+                    content,
+                    editedBy: user.email,
+                    editedAt: currentTime
+                }];
                 await addDoc(collection(db, 'notes'), noteData);
             } else {
                 const noteRef = doc(db, 'notes', id);
-                await setDoc(noteRef, noteData, { merge: true });
+                const newVersion = {
+                    title,
+                    content,
+                    editedBy: user.email,
+                    editedAt: currentTime
+                };
+                await updateDoc(noteRef, {
+                    ...noteData,
+                    versions: arrayUnion(newVersion)
+                });
             }
             navigate('/notes');
         } catch (error) {
